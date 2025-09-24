@@ -43,8 +43,12 @@ public:
 
     void enqueue(const T& v){
         Nodo* nuevo = new Nodo{v, nullptr};
-        if(!ult){ puntero = ult = nuevo; }
-        else { ult->sig = nuevo; ult = nuevo; }
+        if(!ult) {
+            puntero = ult = nuevo;
+        }
+        else {
+            ult->sig = nuevo; ult = nuevo;
+        }
     }
 
 
@@ -71,8 +75,13 @@ public:
     void printRec(function<void(const T&)> printer) const {
         printRecImpl(puntero, printer);
     }
-    size_t sizeRec() const { return sizeRecImpl(puntero); }
-    void clearRec(){ clearRecImpl(puntero); ult = nullptr; }
+    size_t sizeRec() const {
+        return sizeRecImpl(puntero);
+    }
+    void clearRec() {
+        clearRecImpl(puntero);
+        ult = nullptr;
+    }
     bool searchRec(function<bool(const T&)> pred) const {
         return searchRecImpl(puntero, pred);
     }
