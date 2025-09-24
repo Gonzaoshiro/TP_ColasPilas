@@ -10,8 +10,8 @@ bool cargarPreset(Cola<Ticket>& eventos, const string& path){
         cout << "No se pudo abrir: " << path << "\n";
         return false;
     }
-    string line;
     int count=0;
+    string line;
     while(getline(in, line)){
         if(line.empty()) continue;
         Ticket t;
@@ -45,7 +45,7 @@ void procesarSiguiente(Cola<Ticket>& eventos, Pila<Accion>& acciones){
     a.tipo = TipoAccion::RESOLVER;
     a.ticket = t;
 
-    // ⚡ limpiar buffer antes de getline
+    //limpiar buffer antes de getline
     cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
     cout << "Ingrese comentario para este ticket: ";
@@ -67,7 +67,7 @@ void deshacer(Pila<Accion>& acciones, Cola<Ticket>& eventos){
         return;
     }
     if(a.tipo == TipoAccion::RESOLVER){
-        eventos.enqueueFront(a.ticket);
+        eventos.enqueueFront(a.ticket); //Revisar
         cout << "UNDO: Reabierto ticket "; mostrarTicket(a.ticket);
     } else {
         cout << "Tipo de accion no soportado para undo.\n";
@@ -76,10 +76,15 @@ void deshacer(Pila<Accion>& acciones, Cola<Ticket>& eventos){
 
 void buscarRec(const Cola<Ticket>& eventos, const Pila<Accion>& acciones){
     cout << "Buscar por ID: ";
-    int id; cin >> id;
+    int id;
+    cin >> id;
 
-    bool enCola = eventos.searchRec([&](const Ticket& t){ return mismoId(t,id); });
-    bool enPila = acciones.searchRec([&](const Accion& ac){ return mismoId(ac.ticket,id); });
+    bool enCola = eventos.searchRec([&](const Ticket& t) {
+        return mismoId(t,id);
+    });
+    bool enPila = acciones.searchRec([&](const Accion& ac) {
+        return mismoId(ac.ticket,id);
+    });
 
     cout << "Resultado busqueda id #" << id << " -> "
          << "Cola: " << (enCola ? "SI" : "NO")
@@ -93,7 +98,9 @@ void mostrarStats(const Cola<Ticket>& eventos, const Pila<Accion>& acciones){
 
 void printColaRec(const Cola<Ticket>& eventos){
     cout << "--- COLA (pendientes) ---\n";
-    eventos.printRec([](const Ticket& t){ mostrarTicket(t); });
+    eventos.printRec([](const Ticket& t) {
+        mostrarTicket(t);
+    });
 }
 void printPilaRec(const Pila<Accion>& acciones){
     cout << "--- PILA (acciones, top->bottom) ---\n";

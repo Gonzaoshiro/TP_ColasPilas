@@ -35,9 +35,13 @@ class Pila {
 
 public:
     Pila() = default;
-    ~Pila(){ clearRec(); }
+    ~Pila() {
+        clearRec();
+    }
 
-    bool empty() const { return puntero == nullptr; }
+    bool empty() const {
+        return puntero == nullptr;
+    }
 
     void push(const T& v){
         Nodo* nuevo = new Nodo{v, puntero};
@@ -45,7 +49,8 @@ public:
     }
 
     bool pop(T& out){
-        if(!puntero) return false;
+        if(!puntero)
+            return false;
         Nodo* aux = puntero;
         out = aux->dato;
         puntero = puntero->sig;
@@ -56,8 +61,12 @@ public:
     void printRec(function<void(const T&)> printer) const {
         printRecImpl(puntero, printer);
     }
-    size_t sizeRec() const { return sizeRecImpl(puntero); }
-    void clearRec(){ clearRecImpl(puntero); }
+    size_t sizeRec() const {
+        return sizeRecImpl(puntero);
+    }
+    void clearRec() {
+        clearRecImpl(puntero);
+    }
     bool searchRec(function<bool(const T&)> pred) const {
         return searchRecImpl(puntero, pred);
     }

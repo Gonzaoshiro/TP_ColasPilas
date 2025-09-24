@@ -18,7 +18,6 @@ enum class TipoAccion { RESOLVER };
 
 // Cada acción guarda el ticket y metadatos (quién/qué hizo)
 struct Accion {
-
     TipoAccion tipo{TipoAccion::RESOLVER};
     Ticket ticket;
     string comentario; // ej. "Resuelto por operador X"
